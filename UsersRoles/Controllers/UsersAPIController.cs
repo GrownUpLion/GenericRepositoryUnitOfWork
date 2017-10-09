@@ -32,7 +32,6 @@ namespace UsersAdmin.Controllers
         public User Get(int id)
         {
             User user = _unitOFWOrk.GetRepository().GetById<User>(id);
-            //user.Roles = null;
             return user;
         }
 
@@ -46,8 +45,6 @@ namespace UsersAdmin.Controllers
         // PUT api/usersapi/id
         public void Put(User user)
         {
-            Role role = _unitOFWOrk.GetRepository().GetById<Role>(2);
-            user.Roles.Add(role);
             _unitOFWOrk.GetRepository().Update(user);
             _unitOFWOrk.Commit();
         }

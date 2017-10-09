@@ -353,11 +353,12 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\APISripts\Controller.js" />
-    <Content Include="Scripts\APISripts\CreateUserController.js" />
+    <Content Include="Scripts\APISripts\MainController.js" />
     <Content Include="Scripts\APISripts\EditUserController.js" />
     <Content Include="Scripts\APISripts\Module.js" />
-    <Content Include="Scripts\APISripts\Service.js" />
+    <Content Include="Scripts\APISripts\RolesService.js" />
+    <Content Include="Scripts\APISripts\UsersService.js" />
+    <Content Include="Scripts\checklist-model.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -371,7 +372,6 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="AngularViews\Create.html" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1123,6 +1123,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\ocLazyLoad.min.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Vendor\animate.css\animate.css" />

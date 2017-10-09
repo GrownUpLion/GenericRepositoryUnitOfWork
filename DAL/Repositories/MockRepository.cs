@@ -12,32 +12,7 @@ namespace DAL.Repositories
     public class MockRepository : IRepository<IEntity>
     {
         public static List<User> _users = new List<User>();
-        //    {
-        //        new User
-        //        {
-        //            Id = 1,
-        //            UserName = "JosePelayo",
-        //            FirstName = "Jose",
-        //            LastName = "Pelayo",
-        //            Email = "jmpelayot@gmail.com",
-        //            Active = true,
-        //            Roles = new List<Role>()
-        //        }
-        //};
         public static List<Role> _roles = new List<Role>();
-        //    {
-        //        new Role
-        //        {
-        //            Id = 1,
-        //            Name = "Admin"
-        //        },
-        //        new Role
-        //        {
-        //            Id = 1,
-        //            Name = "User"
-        //        }
-
-        //};
 
         static MockRepository()
         {
@@ -60,12 +35,12 @@ namespace DAL.Repositories
             user.Roles.Add(role);
             Role role2 = new Role
             {
-                Id = 1,
+                Id = 2,
                 Name = "User"
             };
 
             _roles.Add(role);
-            _roles.Add(role);
+            _roles.Add(role2);
             _users.Add(user);
         }
 
@@ -79,13 +54,13 @@ namespace DAL.Repositories
         {
             if (obj.GetType() == typeof(User))
             {
-                User user = _users.Where(x => x.Id == obj.Id).First();
-                user = (User)obj;
+                int index = _users.FindIndex(x => x.Id == obj.Id);
+                _users[index]= (User)obj;
             }
             else
             {
-                Role role = _roles.Where(x => x.Id == obj.Id).First();
-                role = (Role)obj;
+                int index = _roles.FindIndex(x => x.Id == obj.Id);
+                _roles[index] = (Role)obj;
             }
         }
 

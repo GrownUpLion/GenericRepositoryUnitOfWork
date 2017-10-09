@@ -1,47 +1,90 @@
-﻿(function(app) {
-    var EditController = function ($scope, APIService) {
-        GestUser(1);
+﻿(function (app) {
+    var editController = function ($scope, UsersAPiService, APIRoleService, $routeParams, $location) {
 
-        function GestUser() {
-            var servCall = APIService.GestUser();
-            servCall.then(function (d) {
-                $scope.user = d.data.$values;
+        function GetUser(id) {
+            return new Promise(function (resolve, reject) {
+                UsersAPiService.GetUser(id).then(function (d) {
+                    $scope.user = d.data;
+                    resolve();
+                }, function (error) {
+                    $log.error(error)
+                    reject(Error(error));
+                })
+            });
+        }
+
+        function GetRoles() {
+            APIRoleService.getRoles().then(function (d) {
+                $scope.roles = d.data.$values;
             }, function (error) {
                 $log.error('Oops! Something went wrong while fetching the data.')
             })
         }
 
-        $scope.isEditable = function () {
-            return $scope.edit && $scope.edit.music;
-        };
+        function BindRoles() {
+        }
 
-        $scope.cancel = function() {
-            $scope.edit.music = null;
-        };
+        $scope.toggleSelection = function toggleSelection(event,role) {
 
-        $scope.save = function () {
-            if ($scope.edit.music.Id) {
-                updateMusic();
-            } else {
-                createMusic();
+            if (event.target.checked) {
+                var newRole = {
+                    Id: role.Id,
+                    Name : role.Name
+                }
+                $scope.user.Roles.$values.push(newRole);
+
+            }
+
+            else {
+                index =  $scope.user.Roles.$values.findIndex(x => x.Name == role.Name);
+                $scope.user.Roles.$values.splice(index, 1);
             }
         };
-        $scope.musics = [];
-        var updateMusic = function() {
-            musicService.update($scope.edit.music)
-                    .then(function () {
-                    angular.extend($scope.music, $scope.edit.music);
-                    $scope.edit.music = null;
-                });
+    
+
+        $scope.finUserRole = function finUserRole(name) {
+            if (!$scope.user) return false;
+            else return $scope.user.Roles.$values.findIndex(x => x.Name == name) > -1;
+        }
+
+        $scope.saveUser = function () {
+            var user = {
+                id: $scope.user.Id,
+                UserName: $scope.user.UserName,
+                FirstName: $scope.user.FirstName,
+                Email: $scope.user.Email,
+                LastName: $scope.user.LastName,
+                Active: $scope.user.Active,
+                Roles: $scope.user.Roles,
+            };
+            var saveUser = UsersAPiService.saveUser(user);
+            saveUser.then(function (d) {
+                $location.url('/List');
+            }, function (error) {
+                console.log('Oops! Something went wrong while saving the data.')
+            })
         };
 
-        var createMusic = function () {
-            musicService.create($scope.edit.music)
-                .then(function () {
-                    $scope.musics.push($scope.edit.music);
-                    $scope.edit.music = null;
-                });
-        };
-    };
-    app.controller("EditUserController", EditUserController);
-}(angular.module("theMusic")));
+        if ($routeParams.id) {
+            GetUser($routeParams.id).then(GetRoles());
+        }
+        else {
+            var user = {
+                id: null,
+                UserName: null,
+                FirstName: null,
+                Email: null,
+                LastName: null,
+                Active: null,
+                Roles: {$values: []}
+            }
+            $scope.user = user;
+            GetRoles();
+            
+    }
+}
+
+    app.controller("editController", editController);
+
+}(angular.module("UserRole")));
+

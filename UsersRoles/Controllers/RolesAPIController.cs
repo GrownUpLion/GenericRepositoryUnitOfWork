@@ -18,14 +18,14 @@ namespace UsersAdmin.Controllers
             this._repository = _repository;
         }
 
-        // GET api/<controller>
+        // GET api/rolesapi
         public IEnumerable<Role> Get()
         {
             IEnumerable<Role> roles = _repository.GetAll<Role>(0, 100);
             return roles;
         }
 
-        // GET api/<controller>/5
+        // GET api/rolesapi/5
         public string Get(int id)
         {
             return "value";

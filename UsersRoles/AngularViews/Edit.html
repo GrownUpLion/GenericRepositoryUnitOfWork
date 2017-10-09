@@ -12,12 +12,12 @@
         </div>
     </div>
 </div>
-<div class="content animate-panel" >
+<div class="content animate-panel">
     <div class="row">
         <div class="col-lg-12">
             <div class="hpanel">
                 <div class="well">
-                    <div class="form-horizontal"  ng-controller="mainController">
+                    <div class="form-horizontal" ng-controller="editController">
                         <h4>UserName</h4>
                         <hr />
                         <div class="form-group">
@@ -49,13 +49,25 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2"> Active</label>
-                            <div  class="col-md-10">
-                                <div class="checkbox">
-                                    <input type="checkbox" ng-model="user.Active"  ng-true-value="1" ng-false-value="0"/>
-                                </div>
+                            <div class="col-md-10">
+                                <input type="checkbox" ng-model="user.Active"/>
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label class="control-label col-md-2"> Roles</label>
+                            <div class="col-md-10">
+                                <!--<label data-ng-repeat="role in roles">
+                                    <input type="checkbox" checklist-model="user.roles"> {{role.Name}}
+                                </label>-->
+                                <label data-ng-repeat="role in roles">
+                                    <input type="checkbox"
+                                           name="selectedRoles[]"
+                                           value={{role.Name}}
+                                           ng-checked="finUserRole(role.Name)"
+                                           ng-click="toggleSelection($event,role)"> {{role.Name}}
+                                </label>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <button type="button" class="btn btn-default" data-ng-click="saveUser();">Submit</button>
@@ -67,12 +79,3 @@
         </div>
     </div>
 </div>
-<script src="~/Vendor/iCheck/icheck.min.js"></script>
-
-
-<style>
-    .icheckbox_square-green.checked.disabled {
-        background-position: -48px 0 !important;
-    }
-</style>
-
