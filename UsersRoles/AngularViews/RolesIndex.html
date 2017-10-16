@@ -7,37 +7,33 @@
                 </div>
             </a>
             <h2 class="font-light m-b-xs">
-                <u>Users</u>
+                <u>Roles</u>
             </h2>
         </div>
     </div>
 </div>
-<div class="content animate-panel"  ng-controller="mainController">
+<div class="content animate-panel" ng-controller="rolesController">
     <div class="row">
         <div class="col-lg-12">
             <div class="hpanel">
                 <div class="panel-body">
                     <p class="text-right">
-                        <a class="btn btn-primary" type="button" href="#!/Create">Add User</a>
+                        <a class="btn btn-primary" type="button" href="#!/CreateRole">Add Role</a>
                     </p>
                     <div id="tblSubs" class="table-responsive">
                         <table class="table table-striped table-bordered table-hover dataTables">
                             <thead>
                                 <tr>
-                                    <th>UserName</th>
-                                    <th>FirstName</th>
-                                    <th>LastName</th>
+                                    <th>Name</th>
                                     <th class="no-sort" style="width: 218px;"></th>
                                 </tr>
                             </thead>
-                            <tbody data-ng-repeat="sub in users">
+                            <tbody data-ng-repeat="role in roles">
                                 <tr>
-                                    <td>{{sub.UserName}}</td>
-                                    <td>{{sub.FirstName}}</td>
-                                    <td>{{sub.LastName}}</td>
+                                    <td>{{role.Name}}</td>
                                     <td>
-                                        <a class="btn btn-primary" type="button" href="#!/Edit/{{sub.Id}}">Edit</a>
-                                        <a class="btn btn-primary" ng-click="deleteUser(sub.Id)">Delete</a>
+                                        <a class="btn btn-primary" type="button" href="#!/EditRole/{{role.Id}}">Edit</a>
+                                        <a class="btn btn-primary" ng-click="deleteRole(role.Id)">Delete</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -48,5 +44,3 @@
         </div>
     </div>
 </div>
-
-

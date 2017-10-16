@@ -1,0 +1,54 @@
+﻿<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <h2 class="font-light m-b-xs">
+                <u>Users</u>
+            </h2>
+        </div>
+    </div>
+</div>
+<div class="content animate-panel"  ng-controller="userIndexController">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <p class="text-right">
+                        <a class="btn btn-primary" type="button" href="#!/Create">Add User</a>
+                    </p>
+                    <div id="tblSubs" class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables">
+                            <thead>
+                                <tr>
+                                    <th>UserName</th>
+                                    <th>FirstName</th>
+                                    <th>LastName</th>
+                                    <th class="no-sort" style="width: 218px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody data-ng-repeat="sub in users">
+                                <tr>
+                                    <td>{{sub.UserName}}</td>
+                                    <td>{{sub.FirstName}}</td>
+                                    <td>{{sub.LastName}}</td>
+                                    <td>
+                                        <a class="btn btn-primary" type="button" href="#!/Edit/{{sub.Id}}">Edit</a>
+                                        <a class="btn btn-primary" ng-click="deleteUser(sub.Id)">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a ng-click="getPreviousUsers()" class="btn btn-primary">&laquo; Previous</a>
+                        <a ng-click="getNextUsers()"class="btn btn-primary">Next &raquo;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

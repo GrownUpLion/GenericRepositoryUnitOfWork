@@ -27,7 +27,13 @@ namespace UsersAdmin
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling   
+            config.Routes.MapHttpRoute(
+                name: "Pagination",
+                routeTemplate: "api/{controller}/{pageNo}/{pagesize}",
+                defaults: new { pageNo = RouteParameter.Optional, pagesize = RouteParameter.Optional }
+            );
+
+            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling
                 = Newtonsoft.Json.PreserveReferencesHandling.All;
 
         }

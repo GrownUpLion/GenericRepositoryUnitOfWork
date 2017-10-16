@@ -21,7 +21,12 @@
             })
         }
 
-        function BindRoles() {
+        function parseErrors(response) {
+            var errors = [];
+            $.each(response, function (k, v) {
+                if (v.$values)errors.push(v.$values[0])
+            });
+            return errors;
         }
 
         $scope.toggleSelection = function toggleSelection(event,role) {
@@ -49,7 +54,7 @@
 
         $scope.saveUser = function () {
             var user = {
-                id: $scope.user.Id,
+                Id: $scope.user.Id,
                 UserName: $scope.user.UserName,
                 FirstName: $scope.user.FirstName,
                 Email: $scope.user.Email,
@@ -61,6 +66,7 @@
             saveUser.then(function (d) {
                 $location.url('/List');
             }, function (error) {
+                $scope.errors = parseErrors(error.data.ModelState);
                 console.log('Oops! Something went wrong while saving the data.')
             })
         };
@@ -70,7 +76,7 @@
         }
         else {
             var user = {
-                id: null,
+                Id: 0,
                 UserName: null,
                 FirstName: null,
                 Email: null,

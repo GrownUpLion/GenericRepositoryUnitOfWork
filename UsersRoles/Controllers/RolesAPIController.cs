@@ -11,39 +11,49 @@ namespace UsersAdmin.Controllers
 {
     public class RolesAPIController : ApiController
     {
-        public IRepository<IEntity> _repository { get; set; }
+        public IUnitOfWork _unitOFWOrk { get; set; }
 
-        public RolesAPIController(IRepository<IEntity> _repository)
+        public RolesAPIController(IUnitOfWork _unitOFWOrk)
         {
-            this._repository = _repository;
+            this._unitOFWOrk = _unitOFWOrk;
         }
 
         // GET api/rolesapi
         public IEnumerable<Role> Get()
         {
-            IEnumerable<Role> roles = _repository.GetAll<Role>(0, 100);
+            IEnumerable<Role> roles = _unitOFWOrk.GetRepository().GetAll<Role>(0, 100);
             return roles;
         }
 
         // GET api/rolesapi/5
-        public string Get(int id)
+        public Role Get(int id)
         {
-            return "value";
+            Role role = _unitOFWOrk.GetRepository().GetById<Role>(id);
+            return role;
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        // POST api/rolesapi
+        public void Post(Role role)
         {
+            _unitOFWOrk.GetRepository().Save(role);
+            _unitOFWOrk.Commit();
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+
+        // PUT api/rolesapi/id
+        public void Put(Role role)
         {
+            _unitOFWOrk.GetRepository().Update(role);
+            _unitOFWOrk.Commit();
         }
 
-        // DELETE api/<controller>/5
+
+        // DELETE api/rolesapi/id
         public void Delete(int id)
         {
+            Role role = _unitOFWOrk.GetRepository().GetById<Role>(id);
+            _unitOFWOrk.GetRepository().Delete(role);
+            _unitOFWOrk.Commit();
         }
     }
 }

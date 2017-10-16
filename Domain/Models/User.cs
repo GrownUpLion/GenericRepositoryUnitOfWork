@@ -19,8 +19,8 @@ namespace Domain.Models
         public virtual string LastName { get; set; }
         [Required]
         public virtual string Email { get; set; }
-        [Required]
-        public virtual bool Active { get; set; }
+
+        public virtual bool? Active { get; set; }
         
         public virtual ICollection<Role> Roles { get; set; } 
 

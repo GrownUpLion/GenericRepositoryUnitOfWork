@@ -46,8 +46,20 @@ namespace DAL.Repositories
 
         public void Save(IEntity obj)
         {
-            if (obj.GetType() == typeof(User)) _users.Add((User)obj);
-            else _roles.Add((Role)obj);
+            if (obj.GetType() == typeof(User))
+            {
+                User last = _users.LastOrDefault<User>();
+                if (last == null) obj.Id = 1;
+                else obj.Id = last.Id + 1;
+                _users.Add((User)obj);
+            }
+            else
+            {
+                Role last = _roles.LastOrDefault<Role>();
+                if (last == null) obj.Id = 1;
+                else obj.Id = last.Id + 1;
+                _roles.Add((Role)obj);
+            }
         }
 
         public void Update(IEntity obj)

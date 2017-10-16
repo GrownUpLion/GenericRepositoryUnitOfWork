@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Domain.Validators;
 
 namespace UsersAdmin.Controllers
 {
@@ -16,30 +17,36 @@ namespace UsersAdmin.Controllers
 
         public IUnitOfWork _unitOFWOrk { get; set; }
 
+
         public UsersAPIController(IUnitOfWork _unitOFWOrk)
         {
             this._unitOFWOrk = _unitOFWOrk;
         }
 
-        // GET api/usersapi
-        public IEnumerable<User> Get()
+        // GET api/usersapi/pageno/pagesize
+        public IEnumerable<User> Get([FromUri]int pageNo, [FromUri]int pageSize)
         {
-            IEnumerable<User> users = _unitOFWOrk.GetRepository().GetAll<User>(0, 100);
+            IEnumerable<User> users = _unitOFWOrk.GetRepository().GetAll<User>(pageNo, pageSize);
             return users.ToList<User>();
         }
 
         // GET api/usersapi/id
-        public User Get(int id)
+        public User Get([FromUri] int id)
         {
             User user = _unitOFWOrk.GetRepository().GetById<User>(id);
             return user;
         }
 
         // POST api/usersapi
-        public void Post(User user)
+        public IHttpActionResult Post(User user)
         {
-            _unitOFWOrk.GetRepository().Save(user);
-            _unitOFWOrk.Commit();
+            if (ModelState.IsValid)
+            {
+                _unitOFWOrk.GetRepository().Save(user);
+                _unitOFWOrk.Commit();
+            }
+            else return BadRequest(ModelState);
+            return Ok();
         }
 
         // PUT api/usersapi/id
